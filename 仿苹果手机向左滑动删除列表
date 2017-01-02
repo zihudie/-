@@ -143,7 +143,7 @@ $(function() {
    }
 
     $(".swipe-delete li > a").on("touchstart",function(e){
-        $(".swipe-delete li > a").css("left",0);
+       $(".swipe-delete li > a").animate({'left':0},100);
         x = e.originalEvent.targetTouches[0].pageX;
     }).on("touchmove",function(e){
         
