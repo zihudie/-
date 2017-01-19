@@ -1,0 +1,66 @@
+requestAnimationFrame是什么？
+　　　　在浏览器动画程序中，我们通常使用一个定时器来循环每隔几毫秒移动目标物体一次，来让它动起来。如今有一个好消息，浏览器开发商们决定：“嗨，为什么我们不在浏览器里提供这样一个API呢，
+这样一来我们可以为用户优化他们的动画。”所以，这个requestAnimationFrame()函数就是针对动画效果的API，你可以把它用在DOM上的风格变化或画布动画好或WebGL中。
+　　使用requestAnimationFrame有什么好处？
+　　　　浏览器可以优化并行的动画动作，更合理的重新排列动作序列，并把能够合并的动作放在一个渲染周期内完成，从而呈现出更流畅的动画效果。
+比如，通过requestAnimationFrame()，JS动画能够和CSS动画/变换或SVG SMIL动画同步发生。另外，如果在一个浏览器标签页里运行一个动画，当这个标签页不可见时，
+浏览器会暂停它，这会减少CPU，内存的压力，节省电池电量。
+　　requestAnimationFrame的用法
+　　　先来看一个简单的小栗子:
+　　　模拟一个进度条动画，初始div宽度为1px,在step函数中将进度加1然后再更新到div宽度上，在进度达到100之前，一直重复这一过程。
+<div id="test" style="width:1px;height:17px;background:#0f0;">0%</div>
+<input type="button" value="Run" id="run"/>
+ 
+window.requestAnimationFrame = window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||  window.msRequestAnimationFrame;
+var start = null;
+var ele = document.getElementById("test");
+var progress = 0;
+ 
+function step(timestamp) {
+    progress += 1;
+    ele.style.width = progress + "%";
+    ele.innerHTML=progress + "%";
+    if (progress < 100) {
+        requestAnimationFrame(step);
+    }
+}
+requestAnimationFrame(step);
+document.getElementById("run").addEventListener("click", function() {
+    ele.style.width = "1px";
+    progress = 0;
+    requestAnimationFrame(step);
+}, false);
+
+
+/////////////////////////////////////////////华丽丽的兼容分割线///////////////////////////////////////////////////////////
+
+
+
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+ 
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+        
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
+
+
+
+
