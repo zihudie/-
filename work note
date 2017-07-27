@@ -21,7 +21,14 @@ pageInfoService.pushCancelTimeout($timeout(function() {
  /********************************************************************************************/
  BaseService.setErrorMas(true, 'xxxxxxxxxxxxxxxxxxxxx');
  
-
+ /*******************************************************************************************/
+ BaseService.dialogNew(true, {
+                  updialogType: 'channel',
+                  dialogHtml: '<h3 class="f17 c31 text-center">' + publicMEG.getMeg("TIPS") + '</h3><p class="f15 c31   text-center mt_5">请至PC端完成资料上传</p>',
+                  dialogRightEven: function() {
+                      BaseService.dialogNew(false);
+                  }
+   })
 
 ftp:连接环境
 
