@@ -57,3 +57,16 @@ pageInfoService.pushCancelTimeout($timeout(function() {
 
 腾讯第二季度报表的h5 动画效果：
 http://cdn.ir.tencent.com/ir/source20170816/index_c.html
+
+ 
+mogodb:
+https://www.kancloud.cn/kancloud/create-voting-app/63989
+
+快速启动mogodb:
+
+http://www.yiibai.com/mongodb/mongodb_quick_guide.html
+
+D:\software\MongoDB\Server\3.0\bin>mongod.exe --dbpath "E:\workSpace\mogodbData" 
+D:\software\MongoDB\Server\3.0\bin>mongo.exe
+
+
