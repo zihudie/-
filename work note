@@ -1,4 +1,6 @@
 
+绕过谷歌商店下载谷歌插件 http://chrome-extension-downloader.com/
+
 淘宝镜像：  --registry=https://registry.npm.taobao.org
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 
